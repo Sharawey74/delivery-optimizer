@@ -1,0 +1,14 @@
+* text=auto
+
+# Code files
+*.js text
+*.jsx text
+*.py text diff=python
+*.css text
+*.html text
+*.md text
+
+# Configs
+*.json text
+*.yaml text
+*.yml text

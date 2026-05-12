@@ -1,0 +1,89 @@
+# 🚚 AI-Based Delivery Optimizer: Complete Walkthrough
+
+This document explains the **Delivery Optimizer Project** in a simple, clean, and easy-to-understand way. It breaks down what the project does, how the simulation runs, and how the algorithms work together to solve complex problems in real-time.
+
+---
+
+## 🎯 1. The Main Purpose of the Project
+
+In the real world, **delivery routes never go exactly as planned**. 
+If a logistics company plans all their routes perfectly at 8:00 AM, that plan becomes useless by 9:00 AM if a road closes, a van breaks down, or a VIP customer places an urgent order.
+
+**The Purpose:** This project simulates a mini-city where things constantly go wrong, and tests an AI-based backend's ability to **instantly react and fix the routes without stopping**. It balances two opposing forces:
+1. **Speed:** Needing to find a solution *immediately* when a disruption happens (so the driver knows where to go next).
+2. **Quality:** Finding the *perfect* optimal route to save gas and time.
+
+---
+
+## ⏱️ 2. How the Simulation Works (The Workflow)
+
+The simulation acts as the beating heart of the project. It runs on a continuous loop, where **1 real second = 1 simulation tick**.
+
+Here is what happens inside the simulation during every single tick:
+
+1. **Move Couriers:** The system checks the 3 couriers. If they have a destination, it moves them one step forward on the map.
+2. **Check Deliveries:** If a courier arrives at a destination, the system marks the package as delivered and removes the weight from the van.
+3. **Roll the Dice for Chaos:** There is a roughly 20% chance that a random **Disruption** will strike the city. 
+4. **Re-Optimize (if quiet):** If 10 seconds have passed without any disruptions, the system takes a deep breath and runs a complex math algorithm to perfect the routes.
+5. **Broadcast:** The entire state of the city is packaged into a JSON object and blasted out to the React frontend via a WebSocket so you can watch it live.
+
+```mermaid
+graph TD
+    A[Tick Starts 1 Second] --> B[Move Couriers Forward]
+    B --> C[Check for Deliveries]
+    C --> D{Disruption Happens?}
+    D -- Yes 20% Chance --> E[Inject Chaos & Fix Quickly]
+    D -- No --> F{Quiet for 10 Ticks?}
+    E --> G
+    F -- Yes --> H[Run Deep DP Optimization]
+    F -- No --> G[Compile City Data]
+    H --> G
+    G --> I[Broadcast Live to React Map]
+```
+
+---
+
+## 🌪️ 3. The Disruptions (What Goes Wrong)
+
+The simulation randomly fires one of four events to try and break the system:
+
+1. **📦 New Order:** A new package suddenly needs to be picked up and dropped off somewhere in the city.
+2. **🚧 Road Closure:** A random street is blocked. No one can drive through it anymore.
+3. **💥 Vehicle Breakdown:** One of the three couriers breaks down. They are removed from the map, and all their packages spill onto the street.
+4. **🚨 Priority Escalation:** A random package is suddenly marked "URGENT" and must be delivered next, ignoring the planned route.
+
+---
+
+## 🧠 4. The Algorithms (How the System Fixes It)
+
+To survive the chaos, the system uses four specific computer science algorithms. Each algorithm has a specialized job.
+
+### Algorithm 1: Dijkstra's Algorithm (The Map Reader)
+* **What it does:** It calculates the absolute shortest path between any two intersections in the city.
+* **When it is used:** It is used constantly to figure out how far a courier has to drive. Critically, when a **Road Closure** happens, Dijkstra automatically recalculates the paths by pretending the blocked road doesn't exist.
+
+### Algorithm 2: Greedy Insertion (The Quick Fix)
+* **What it does:** When a **New Order** arrives, the system doesn't have time to mathematically rethink the entire day's schedule. Instead, the Greedy algorithm takes the new pickup and drop-off stops and rapidly "test fits" them into every possible slot across all 3 couriers. It instantly picks the slot that adds the *least amount of extra driving distance*.
+* **Why it matters:** It operates in milliseconds. The solution isn't mathematically perfect, but it's fast enough to keep the simulation running smoothly.
+
+### Algorithm 3: Bin Packing (The Cargo Manager)
+* **What it does:** Every van has a maximum weight limit (e.g., 50kg). When the Greedy algorithm assigns a new order to a van, it might accidentally push the van to 55kg. Bin Packing activates immediately.
+* **How it works:** It takes the heaviest packages, keeps them in the van, and kicks the lightest packages out until the van is under 50kg. It then forces the *other* vans to pick up the kicked-out packages.
+* **When it is used:** Triggered by **New Orders** or when a **Vehicle Breakdown** forces the surviving vans to absorb all the broken-down van's cargo.
+
+### Algorithm 4: Dynamic Programming / DP (The Perfectionist)
+* **What it does:** The Greedy Algorithm (above) is fast, but sloppy. Over time, as new orders are hastily shoved into the routes, the routes become tangled and inefficient. Dynamic Programming is an advanced algorithm that looks at a courier's list of stops and calculates the *absolute mathematical perfect sequence* to visit them.
+* **When it is used:** Because DP is mathematically heavy and slow, the system waits for a "Quiet Period" (10 ticks with no disruptions). It then runs DP in the background, untangles the messy greedy routes, and saves distance.
+
+---
+
+## 💻 5. Tying it Together: The Frontend Experience
+
+While the Python backend is doing all this heavy lifting, the React frontend is entirely "dumb". 
+
+The frontend does zero math. It simply connects to the WebSocket and receives a massive JSON snapshot of the city every 1 second. 
+
+When it gets the data, it updates:
+* The little colored dots (Couriers) driving along the lines.
+* The Event Log panel (showing exactly which algorithm fixed the latest disruption).
+* The Line Chart (which visibly spikes upwards when a disruption messes up the routes, and drops back down when the **DP Algorithm** swoops in and optimizes everything).
