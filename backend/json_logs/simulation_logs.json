@@ -1,0 +1,263 @@
+[
+  {
+    "tick": 299,
+    "timestamp_s": 1778588344.0857956,
+    "type": "breakdown",
+    "category": "disruption",
+    "algorithm": "Greedy Insertion + Bin Packing",
+    "description": "\ud83d\udca5 DISRUPTION: Courier C2 broke down! Greedy Insertion & Bin Packing reassigning 0 stranded orders.",
+    "quality_delta": 0.0,
+    "courier_id": "C2",
+    "orders_redistributed": 0,
+    "log_written_at": "2026-05-12T15:19:04.085795"
+  },
+  {
+    "tick": 303,
+    "timestamp_s": 1778588348.1254063,
+    "type": "road_closure",
+    "category": "disruption",
+    "algorithm": "Incremental Dijkstra",
+    "description": "\ud83d\udea7 DISRUPTION: Road blocked between Node 2 and 3. Dijkstra rerouting active couriers.",
+    "quality_delta": 0.0,
+    "edge": [
+      2,
+      3
+    ],
+    "couriers_rerouted": [],
+    "log_written_at": "2026-05-12T15:19:08.125406"
+  },
+  {
+    "tick": 311,
+    "timestamp_s": 1778588356.2209115,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-311-760 assigned to Courier C3 using Greedy Insertion (added 90.0km).",
+    "quality_delta": 90.0,
+    "courier_id": "C3",
+    "insertion_index": 0,
+    "insertion_cost_delta": 90.0,
+    "manifest_before": {
+      "courier_id": "C3",
+      "orders": [],
+      "capacity_used": 0.0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C3",
+      "orders": [
+        {
+          "order_id": "ORD-311-760",
+          "weight": 11.24356043459655
+        }
+      ],
+      "capacity_used": 11.24356043459655,
+      "capacity_max": 50,
+      "utilization_pct": 22.49
+    },
+    "log_written_at": "2026-05-12T15:19:16.220911"
+  },
+  {
+    "tick": 318,
+    "timestamp_s": 1778588363.287818,
+    "type": "road_closure_resolved",
+    "category": "operational",
+    "algorithm": "-",
+    "description": "\u2705 Road 2-3 cleared. Traffic flow restored.",
+    "quality_delta": 0.0,
+    "log_written_at": "2026-05-12T15:19:23.287817"
+  },
+  {
+    "tick": 319,
+    "timestamp_s": 1778588364.3017762,
+    "type": "breakdown_resolved",
+    "category": "operational",
+    "algorithm": "-",
+    "description": "\ud83d\udd27 Courier C2 repaired and back online.",
+    "quality_delta": 0.0,
+    "log_written_at": "2026-05-12T15:19:24.301776"
+  },
+  {
+    "tick": 2,
+    "timestamp_s": 1778588383.8686755,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-2-526 assigned to Courier C3 using Greedy Insertion (added 240.0km).",
+    "quality_delta": 240.0,
+    "courier_id": "C3",
+    "insertion_index": 0,
+    "insertion_cost_delta": 240.0,
+    "manifest_before": {
+      "courier_id": "C3",
+      "orders": [],
+      "capacity_used": 0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C3",
+      "orders": [
+        {
+          "order_id": "ORD-2-526",
+          "weight": 6.681439856490062
+        }
+      ],
+      "capacity_used": 6.681439856490062,
+      "capacity_max": 50,
+      "utilization_pct": 13.36
+    },
+    "log_written_at": "2026-05-12T15:19:43.868675"
+  },
+  {
+    "tick": 2,
+    "timestamp_s": 1778588428.8806,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-2-493 assigned to Courier C2 using Greedy Insertion (added 105.0km).",
+    "quality_delta": 105.0,
+    "courier_id": "C2",
+    "insertion_index": 0,
+    "insertion_cost_delta": 105.0,
+    "manifest_before": {
+      "courier_id": "C2",
+      "orders": [],
+      "capacity_used": 0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C2",
+      "orders": [
+        {
+          "order_id": "ORD-2-493",
+          "weight": 12.714425695962584
+        }
+      ],
+      "capacity_used": 12.714425695962584,
+      "capacity_max": 50,
+      "utilization_pct": 25.43
+    },
+    "log_written_at": "2026-05-12T15:20:28.880600"
+  },
+  {
+    "tick": 2,
+    "timestamp_s": 1778588478.2715745,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-2-546 assigned to Courier C3 using Greedy Insertion (added 110.0km).",
+    "quality_delta": 110.0,
+    "courier_id": "C3",
+    "insertion_index": 0,
+    "insertion_cost_delta": 110.0,
+    "manifest_before": {
+      "courier_id": "C3",
+      "orders": [],
+      "capacity_used": 0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C3",
+      "orders": [
+        {
+          "order_id": "ORD-2-546",
+          "weight": 11.15031158162411
+        }
+      ],
+      "capacity_used": 11.15031158162411,
+      "capacity_max": 50,
+      "utilization_pct": 22.3
+    },
+    "log_written_at": "2026-05-12T15:21:18.271574"
+  },
+  {
+    "tick": 5,
+    "timestamp_s": 1778588481.2986045,
+    "type": "breakdown",
+    "category": "disruption",
+    "algorithm": "Greedy Insertion + Bin Packing",
+    "description": "\ud83d\udca5 DISRUPTION: Courier C1 broke down! Greedy Insertion & Bin Packing reassigning 0 stranded orders.",
+    "quality_delta": 0.0,
+    "courier_id": "C1",
+    "orders_redistributed": 0,
+    "log_written_at": "2026-05-12T15:21:21.298604"
+  },
+  {
+    "tick": 25,
+    "timestamp_s": 1778588501.4189172,
+    "type": "breakdown_resolved",
+    "category": "operational",
+    "algorithm": "-",
+    "description": "\ud83d\udd27 Courier C1 repaired and back online.",
+    "quality_delta": 0.0,
+    "log_written_at": "2026-05-12T15:21:41.418917"
+  },
+  {
+    "tick": 40,
+    "timestamp_s": 1778588516.4479673,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-40-166 assigned to Courier C1 using Greedy Insertion (added 245.0km).",
+    "quality_delta": 245.0,
+    "courier_id": "C1",
+    "insertion_index": 0,
+    "insertion_cost_delta": 245.0,
+    "manifest_before": {
+      "courier_id": "C1",
+      "orders": [],
+      "capacity_used": 0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C1",
+      "orders": [
+        {
+          "order_id": "ORD-40-166",
+          "weight": 11.502246551974887
+        }
+      ],
+      "capacity_used": 11.502246551974887,
+      "capacity_max": 50,
+      "utilization_pct": 23.0
+    },
+    "log_written_at": "2026-05-12T15:21:56.447967"
+  },
+  {
+    "tick": 120,
+    "timestamp_s": 1778588596.8076105,
+    "type": "new_order",
+    "category": "operational",
+    "algorithm": "Greedy Insertion",
+    "description": "\ud83d\udce6 New order ORD-120-998 assigned to Courier C2 using Greedy Insertion (added 245.0km).",
+    "quality_delta": 245.0,
+    "courier_id": "C2",
+    "insertion_index": 0,
+    "insertion_cost_delta": 245.0,
+    "manifest_before": {
+      "courier_id": "C2",
+      "orders": [],
+      "capacity_used": 0,
+      "capacity_max": 50,
+      "utilization_pct": 0.0
+    },
+    "manifest_after": {
+      "courier_id": "C2",
+      "orders": [
+        {
+          "order_id": "ORD-120-998",
+          "weight": 10.719428140124664
+        }
+      ],
+      "capacity_used": 10.719428140124664,
+      "capacity_max": 50,
+      "utilization_pct": 21.44
+    },
+    "log_written_at": "2026-05-12T15:23:16.807610"
+  }
+]

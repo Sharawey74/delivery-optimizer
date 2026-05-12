@@ -9,6 +9,7 @@ from bin_packing import check_capacity, repack_courier, get_cargo_manifest
 from json_logger import append_event_to_json
 
 BROADCAST_CALLBACK = None
+FUTURE_EVENTS = {}
 
 def get_total_route_distance() -> float:
     total = 0.0
@@ -24,7 +25,8 @@ async def run_simulator():
     SIMULATION_STATE["running"] = True
     SIMULATION_STATE["tick"] = 0
     SIMULATION_STATE["narrative"] = "Operations started. 3 Couriers deployed and holding positions."
-    future_events = {}
+    global FUTURE_EVENTS
+    FUTURE_EVENTS.clear()
 
     while SIMULATION_STATE["running"]:
         await asyncio.sleep(1) # 1 real second = 1 tick
@@ -86,19 +88,19 @@ async def run_simulator():
                 else:
                     courier["status"] = "IDLE"
                         
-        if tick in future_events:
-            for event in future_events[tick]:
+        if tick in FUTURE_EVENTS:
+            for event in FUTURE_EVENTS[tick]:
                 event()
-            del future_events[tick]
+            del FUTURE_EVENTS[tick]
                         
         # Initial pacing
         if SIMULATION_STATE["mode"] == "simulation" and tick == 2:
-            fire_disruption(tick, future_events, dtype="new_order")
+            fire_disruption(tick, FUTURE_EVENTS, dtype="new_order")
             
         # Disruption logic (Slower, gradual)
         if SIMULATION_STATE["mode"] == "simulation" and tick > 4:
             if random.random() < 0.05:
-                fire_disruption(tick, future_events)
+                fire_disruption(tick, FUTURE_EVENTS)
             
         # DP Re-optimization
         if tick - SIMULATION_STATE["last_disruption_tick"] >= 6:

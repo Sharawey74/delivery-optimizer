@@ -67,6 +67,14 @@ def get_edges():
         edges.append({"u": u, "v": v, "closed": data.get("closed", False)})
     return edges
 
+@app.get("/api/map")
+def get_map():
+    nodes = [{"id": k, "lat": v[0], "lng": v[1]} for k, v in NODE_POSITIONS.items()]
+    edges = []
+    for u, v, data in ROAD_GRAPH.edges(data=True):
+        edges.append({"u": u, "v": v, "closed": data.get("closed", False)})
+    return {"nodes": nodes, "edges": edges}
+
 @app.post("/api/simulation/start")
 async def start_simulation():
     global simulation_task
@@ -103,10 +111,8 @@ async def trigger_disruption(disruption_type: str):
         return {"status": "error", "message": "Simulation not running"}
     
     if disruption_type in ["new_order", "road_closure", "breakdown", "priority_escalation"]:
-        # We fire the disruption manually on the next possible chance, or we can just fire it here.
-        # But firing it involves changing state which might not be thread safe? FastAPI runs in the same event loop.
-        # It's safe.
-        fire_disruption(SIMULATION_STATE["tick"], {}, dtype=disruption_type)
+        # We fire the disruption manually using the active future events dictionary.
+        simulator.fire_disruption(SIMULATION_STATE["tick"], simulator.FUTURE_EVENTS, dtype=disruption_type)
         await broadcast_state(SIMULATION_STATE)
         return {"status": "success", "triggered": disruption_type}
     return {"status": "error", "message": "Invalid disruption type"}
