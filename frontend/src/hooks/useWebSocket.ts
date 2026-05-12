@@ -85,5 +85,14 @@ export function useSimulation() {
     }
   };
 
-  return { state, connected, startSimulation, stopSimulation, triggerEvent, setMode };
+  // C1: Demo mode — advance exactly one tick manually
+  const stepSimulation = async () => {
+    try {
+      await fetch('/api/simulation/step', { method: 'POST' });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  return { state, connected, startSimulation, stopSimulation, triggerEvent, setMode, stepSimulation };
 }

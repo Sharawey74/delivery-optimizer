@@ -18,7 +18,7 @@ import { CourierPanel } from './components/CourierPanel';
 import { HelpModal } from './components/HelpModal';
 
 export default function App() {
-  const { state, connected, startSimulation, stopSimulation, triggerEvent, setMode } = useSimulation();
+  const { state, connected, startSimulation, stopSimulation, triggerEvent, setMode, stepSimulation } = useSimulation();
   const [showGuide, setShowGuide] = useState(false);
   const [demoMode, setDemoMode] = useState(false); // Can be driven by BE or UI state
 
@@ -122,9 +122,18 @@ export default function App() {
       {state.running && isDemo && (
         <div className="bg-brand-surface border border-brand-indigo/20 rounded-xl px-5 py-3 mx-6 mt-4 flex items-center gap-4 backdrop-blur-sm shadow-xl shadow-brand-indigo/5 animate-scale-in">
           <div className="flex items-center gap-2 text-xs font-semibold text-brand-text-muted uppercase tracking-widest">
-            <Sliders size={14} /> Trigger Event
+            <Sliders size={14} /> Demo Controls
           </div>
           <div className="w-px h-5 bg-brand-surface-border"></div>
+          {/* C1: Manual step button — advances exactly one simulation tick */}
+          <button
+            onClick={stepSimulation}
+            className="flex items-center gap-2 bg-brand-indigo/20 border border-brand-indigo/50 text-brand-indigo-light hover:bg-brand-indigo/30 rounded-lg px-4 py-2 text-sm font-bold transition-all duration-200"
+          >
+            ▶ Step Forward
+          </button>
+          <div className="w-px h-5 bg-brand-surface-border"></div>
+          <span className="text-xs font-semibold text-brand-text-muted uppercase tracking-widest">Trigger Event</span>
           <div className="flex items-center gap-3">
              <button onClick={() => triggerEvent('new_order')} className="flex items-center gap-2 border border-brand-indigo/30 text-brand-indigo-light hover:bg-brand-indigo/10 hover:border-brand-indigo rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200">
                <PackagePlus size={15} /> New Order
