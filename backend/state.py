@@ -1,4 +1,5 @@
 from typing import Dict, Any
+from graph import CLOSED_EDGES
 
 SIMULATION_STATE: Dict[str, Any] = {
     "tick": 0,
@@ -36,6 +37,7 @@ def reset_state():
         "priority_escalation": 0
     }
     SIMULATION_STATE["last_disruption_tick"] = 0
+    CLOSED_EDGES.clear()  # C6: ensure road closures from previous run don't persist
     SIMULATION_STATE["narrative"] = "System initialized. Couriers awaiting dispatch."
     SIMULATION_STATE["dp_comparisons"] = []
     SIMULATION_STATE["route_quality_history"] = []
