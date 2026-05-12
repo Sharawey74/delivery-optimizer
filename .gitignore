@@ -43,3 +43,8 @@ Thumbs.db
 # --- Specific to your screenshot ---
 # If you don't want the compiled python files appearing in git:
 backend/__pycache__/
+# Documentation / local notes
+Computing Algorithms.txt
+DESIGN (4).md
+System prompt.txt
+project_walkthrough.md.resolved
