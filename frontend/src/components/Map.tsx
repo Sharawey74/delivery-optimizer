@@ -1,9 +1,22 @@
 // frontend/src/components/Map.tsx
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Polyline, Tooltip, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Polyline, Tooltip, CircleMarker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { Map as MapIcon } from 'lucide-react';
 import { Courier, MapNode, MapEdge } from '../types';
+
+function MapResizer() {
+  const map = useMap();
+  useEffect(() => {
+    // A generic ResizeObserver to catch any container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(map.getContainer());
+    return () => resizeObserver.disconnect();
+  }, [map]);
+  return null;
+}
 
 // Override default icon since standard Leaflet marker icon fails to load via CSS paths in React
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -50,6 +63,7 @@ export function Map({ couriers }: MapProps) {
       
       <div className="w-full h-[400px]">
         <MapContainer center={[30.0444, 31.2357]} zoom={13} style={{ height: '100%', width: '100%', background: 'var(--surface-container)' }}>
+          <MapResizer />
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -79,8 +93,9 @@ export function Map({ couriers }: MapProps) {
             const posNode = nodes.find(n => n.id === courier.position);
             if (posNode) positions.push([posNode.lat, posNode.lng]);
 
-            courier.route.forEach(nodeId => {
-              const n = nodes.find(n => n.id === nodeId);
+            // C3: route is now RouteEntry[], extract .node from each entry
+            courier.route.forEach(entry => {
+              const n = nodes.find(n => n.id === entry.node);
               if (n) positions.push([n.lat, n.lng]);
             });
             
