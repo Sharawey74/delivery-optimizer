@@ -18,33 +18,20 @@ Thumbs.db
 .env*
 .eslintcache
 
-# --- Specific to your screenshot ---
-# If you don't want the compiled python files appearing in git:
-backend/__pycache__/# --- System Files ---
-.DS_Store
-Thumbs.db
-*.log
+# --- Runtime Data ---
+backend/json_logs/
 
-# --- Python (Backend) ---
-**/__pycache__/
-*.py[cod]
-*$py.class
-**/.venv/
-**/venv/
-**/.pytest_cache/
-
-# --- Node.js (Frontend) ---
-**/node_modules/
-**/dist/
-**/build/
-.env*
-.eslintcache
-
-# --- Specific to your screenshot ---
-# If you don't want the compiled python files appearing in git:
-backend/__pycache__/
-# Documentation / local notes
-Computing Algorithms.txt
-DESIGN (4).md
+# --- Local Documentation & Notes (not for GitHub) ---
+# All .md files are ignored EXCEPT README.md
+*.md
+!README.md
+*.md.resolved
+*.txt
+!requirements.txt
+DESIGN*.md
 System prompt.txt
-project_walkthrough.md.resolved
+Computing Algorithms.txt
+backend_documentation.md
+full_review.md
+technical_review.md
+visual_analysis_and_algorithms.md

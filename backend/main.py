@@ -117,5 +117,15 @@ async def trigger_disruption(disruption_type: str):
         return {"status": "success", "triggered": disruption_type}
     return {"status": "error", "message": "Invalid disruption type"}
 
+@app.post("/api/simulation/step")
+async def step_simulation():
+    """C1: Advance exactly one tick in demo mode. No-op in simulation mode."""
+    if not SIMULATION_STATE["running"]:
+        return {"status": "error", "message": "Simulation not running"}
+    if SIMULATION_STATE["mode"] != "demo":
+        return {"status": "error", "message": "Only available in demo mode"}
+    simulator.DEMO_STEP_REQUESTED = True
+    return {"status": "stepped", "tick": SIMULATION_STATE["tick"]}
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

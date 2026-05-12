@@ -10,12 +10,19 @@ export type CourierStatus =
   | 'RETURNING_TO_DEPOT' | 'BROKEN_DOWN'
   | 'WAITING_FOR_REPAIR' | 'REBALANCING_LOAD' | 'REROUTING';
 
+// C3: Routes are now tagged objects, not bare node integers
+export interface RouteEntry {
+  node: number;
+  order_id: string;
+  type: 'pickup' | 'delivery';
+}
+
 export interface Courier {
   id: string;
   name: string;
   position: number;
   depot: number;
-  route: number[];
+  route: RouteEntry[];
   orders: Order[];
   capacity_max: number;
   capacity_used: number;
